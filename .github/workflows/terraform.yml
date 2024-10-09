@@ -44,9 +44,9 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
-        env:
-          NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+        # env:
+        #   NEW_RELIC_ACCOUNT_ID: {{ secrets.NEW_RELIC_ACCOUNT_ID }}
+        #   NEW_RELIC_API_KEY: {{ secrets.NEW_RELIC_API_KEY }}
 
       - name: Cleanup
         run: rm -f tfplan
