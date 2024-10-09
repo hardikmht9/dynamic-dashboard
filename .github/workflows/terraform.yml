@@ -22,20 +22,11 @@ jobs:
         with:
           terraform_version: 1.5.0  # Specify your desired Terraform version
 
-      # - name: print secrets
-      #   shell: bash
-      #   run: |
-      #     echo "Account id: $NEW_RELIC_ACCOUNT_ID"
-      #     echo "Api_key: $NEW_RELIC_API_KEY"
-      #   env:
-      #     NEW_RELIC_ACCOUNT_ID: {{ secrets.NEW_RELIC_ACCOUNT_ID }}
-      #     NEW_RELIC_API_KEY: {{ secrets.NEW_RELIC_API_KEY }}
-      
       - name: Terraform Init
         run: terraform init
 
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
 
       - name: Terraform Plan
         id: plan
@@ -44,9 +35,7 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
-        # env:
-        #   NEW_RELIC_ACCOUNT_ID: {{ secrets.NEW_RELIC_ACCOUNT_ID }}
-        #   NEW_RELIC_API_KEY: {{ secrets.NEW_RELIC_API_KEY }}
+        
 
       - name: Cleanup
         run: rm -f tfplan
