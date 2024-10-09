@@ -1,7 +1,7 @@
 
 
 resource "newrelic_one_dashboard" "dynamicdashboard" {
-  name        = "practice-daashbor"
+  name        = "donedash1"
 
    dynamic "page" {
     for_each = var.dashboard_pages
