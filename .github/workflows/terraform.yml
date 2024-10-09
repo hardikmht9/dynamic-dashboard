@@ -1,0 +1,39 @@
+name: Terraform New Relic Dashboard Workflow
+
+on:
+  push:
+    branches:
+      - main  # Adjust if your default branch is different
+  pull_request:
+    branches:
+      - main  # Adjust if your default branch is different
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2.0.0
+        with:
+          terraform_version: 1.5.0  # Specify your desired Terraform version
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve tfplan
+
+      - name: Cleanup
+        run: rm -f tfplan
