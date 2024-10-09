@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main  # Adjust if your default branch is different
+  workflow_dispatch:
 
 jobs:
   terraform:
