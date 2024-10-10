@@ -43,12 +43,12 @@ jobs:
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
 
 
-      - name: Terraform Destroy
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
-          TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
-        run: terraform destroy -auto-approve
+      # - name: Terraform Destroy
+      #   : github.event_name == 'workflow_dispatch'
+      #   env:
+      #     TF_VAR_id: {{ secrets.NEWRELIC_ACCOUNT_ID }}
+      #     TF_VAR_api: {{ secrets.NEWRELIC_API_KEY }}
+      #   run: terraform destroy -auto-approve
 
 
 
