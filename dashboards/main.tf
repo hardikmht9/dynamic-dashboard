@@ -1,7 +1,7 @@
 
 
 resource "newrelic_one_dashboard" "dynamicdashboard" {
-  name        = "donedash1"
+  name        = "terraformwithenv"
 
    dynamic "page" {
     for_each = var.dashboard_pages
