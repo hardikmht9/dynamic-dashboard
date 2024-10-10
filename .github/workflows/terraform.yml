@@ -27,14 +27,23 @@ jobs:
         run: terraform init
 
       - name: Terraform Validate
+        env:
+          NEWRELIC_API_KEY: ${{ secrets.NEWRELIC_API_KEY }}
+          NEWRELIC_ACCOUNT_ID: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
         run: terraform validate
 
       - name: Terraform Plan
         id: plan
+        env:
+          NEWRELIC_API_KEY: ${{ secrets.NEWRELIC_API_KEY }}
+          NEWRELIC_ACCOUNT_ID: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          NEWRELIC_API_KEY: ${{ secrets.NEWRELIC_API_KEY }}
+          NEWRELIC_ACCOUNT_ID: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
         run: terraform apply -auto-approve tfplan
 
       - name: Cleanup
