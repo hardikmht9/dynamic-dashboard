@@ -3,7 +3,7 @@ name: Terraform New Relic Dashboard Workflow
 on:
   # push:
   #   branches:
-  #     - main  
+  #     - main 
   # pull_request:
   #   branches:
   #     - main  
@@ -31,7 +31,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan 
+        run: terraform plan -out=tfplan
         env:
           TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
@@ -42,13 +42,5 @@ jobs:
           TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
 
-
-      # - name: Terraform Destroy
-      #   : github.event_name == 'workflow_dispatch'
-      #   env:
-      #     TF_VAR_id: {{ secrets.NEWRELIC_ACCOUNT_ID }}
-      #     TF_VAR_api: {{ secrets.NEWRELIC_API_KEY }}
-      #   run: terraform destroy -auto-approve
-
-
-
+      # - name: Cleanup
+      #   run: rm -f tfplan
