@@ -1,12 +1,12 @@
 name: Terraform New Relic Dashboard Workflow
 
 on:
-  push:
-    branches:
-      - main  # Adjust if your default branch is different
-  pull_request:
-    branches:
-      - main  # Adjust if your default branch is different
+  # push:
+  #   branches:
+  #     - main  # Adjust if your default branch is different
+  # pull_request:
+  #   branches:
+  #     - main  # Adjust if your default branch is different
   workflow_dispatch:
 
 jobs:
@@ -15,14 +15,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2.0.0
-        with:
-          terraform_version: 1.5.0  # Specify your desired Terraform version
 
       - name: Terraform Init
+        env:
+          NEWRELIC_ACCOUNT_ID: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          NEWRELIC_API_KEY: ${{ secrets.NEWRELIC_API_KEY }}
         run: terraform init
 
       - name: Terraform Validate
