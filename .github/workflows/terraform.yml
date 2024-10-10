@@ -30,14 +30,13 @@ jobs:
       #   run: terraform validate
 
       - name: Terraform Plan
-        id: plan
-        run: terraform plan -out=tfplan
+        run: terraform plan 
         env:
           TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve 
         env:
           TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
