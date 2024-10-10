@@ -19,3 +19,10 @@ variable "dashboard_pages" {
     }))
   }))
 }
+variable "id" {
+  type = string
+}
+
+variable "api" {
+  type = string
+}
