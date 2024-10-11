@@ -1,0 +1,33 @@
+name: Terraform Destroy Specific Resources
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2.0.0
+
+      - name: Terraform Init
+        env:
+          TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
+        run: terraform init
+
+    #   - name: Terraform Plan Destroy
+    #     run: terraform plan -destroy -target=module.name.newrelic_one_dashboard.dynamicdashboard
+    #     env:
+    #       TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+    #       TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
+
+      - name: Terraform Destroy Specific Resource
+        env:
+          TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
+        run: terraform destroy  -auto-approve
