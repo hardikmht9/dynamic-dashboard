@@ -49,7 +49,7 @@ jobs:
         env:
           TF_VAR_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_api: ${{ secrets.NEWRELIC_API_KEY }}
-        run: terraform destroy -target=<resource_type.resource_name> -auto-approve
+        run: terraform destroy -target=newrelic_one_dashboard.dynamicdashboard -auto-approve
 
 
 
